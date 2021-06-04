@@ -338,8 +338,7 @@ public class winsEvent {
 				} else {
 					System.out.println("文件名未发生改变");
 				}
-			}
-		
+			}	
   	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
