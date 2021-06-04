@@ -92,6 +92,7 @@ public class winsEvent {
         	list.addListSelectionListener(listener);
         }
 }
+
 ![FRAME](https://github.com/heixindabaitu/heixindabaitu.github.io/blob/main/%E7%AA%97%E5%8F%A3.png)
 
 ### 具体功能实现代码：
