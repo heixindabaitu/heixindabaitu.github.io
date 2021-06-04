@@ -339,7 +339,7 @@ public class winsEvent {
 					System.out.println("文件名未发生改变");
 				}
 			}	
-  	@Override
+	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
