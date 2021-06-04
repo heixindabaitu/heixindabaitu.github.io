@@ -3,11 +3,11 @@
 GUI 文件管理 
 
 ### 具体功能如下：
-
-1.实现文件查找、遍历
-2.实现复制和粘贴
+1.窗口建立
+2.实现文件查找、遍历
 3.实现重命名
 4.实现预览和统计
+5.双击获得路径
 
 ### 主要代码：
 import java.awt.*;
@@ -93,6 +93,7 @@ public class winsEvent {
         }
 }
 
+
 ### 具体功能实现代码：
 
 	public class Watch1 implements MyListener{
@@ -139,43 +140,7 @@ public class winsEvent {
 				jlist.setListData(vector);
 			}
 		}
-		//复制
-		if (e.getActionCommand().equals("bcopy")) {
-			System.out.println("复制");
-			if (jlist.getSelectedValue() != null) {
-				String selectFile = jlist.getSelectedValue().toString();
-				if (new File(str2 + selectFile).exists()) {
-					copyPath = str2 + selectFile;
-					System.out.println("复制路径：" + copyPath);
-				}
-			}
-		}
-		//粘贴
-		if(e.getActionCommand().equals("bstick")) {
-			System.out.println("粘贴");
-			System.out.println("复制路径：" + copyPath);
-			System.out.println("粘贴路径:" + str2);
-			if (copyPath != null) {
-				if (new File(copyPath).isDirectory()) {
-					try {
-						copyDirectiory(copyPath, str2);
-					} catch (IOException e1) {
-						// TODO 自动生成的 catch 块
-						e1.printStackTrace();
-					}
-				} else if (new File(copyPath).isFile()) {
-					try {
-						copyFile(copyPath, str2 + copyPath.substring(copyPath.lastIndexOf("\\")));
-						System.out.println("粘贴成功！");
-					} catch (IOException e1) {
-						// TODO 自动生成的 catch 块
-						e1.printStackTrace();
-					}
-				}
-				vector = fileList(str2);		//要遍历的路径  
-				jlist.setListData(vector);
-			}
-		}
+		
 		//重命名
 		if(e.getActionCommand().equals("bname")) {
 			System.out.println("重命名");
@@ -277,51 +242,6 @@ public class winsEvent {
 		}
 		return vector;
 	}
-	
-	// 复制文件
-	public static void copyFile(String sPath, String tPath) throws IOException {
-		File sourceFile = new File(sPath);
-		File targetFile = new File(tPath);
-        
-		FileInputStream input = new FileInputStream(sourceFile);
-		BufferedInputStream inBuff = new BufferedInputStream(input);
-
-		FileOutputStream output = new FileOutputStream(targetFile);
-		BufferedOutputStream outBuff = new BufferedOutputStream(output);
-
-		byte[] b = new byte[1024 * 5];
-		int len;
-		while ((len = inBuff.read(b)) != -1) {
-			outBuff.write(b, 0, len);
-		}
-
-		outBuff.flush();
-
-		inBuff.close();
-		outBuff.close();
-		output.close();
-		input.close();
-	}
-	
-	// 复制文件夹
-			public static void copyDirectiory(String sDir, String tDir) throws IOException {
-				(new File(tDir)).mkdirs();
-				File[] file = (new File(sDir)).listFiles();
-				for (int i = 0; i < file.length; i++) {
-					if (file[i].isFile()) {
-						File sourceFile = file[i];
-						File targetFile = new File(new File(tDir).getAbsolutePath() + File.separator + file[i].getName());
-						copyFile(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath());
-					}
-					if (file[i].isDirectory()) {
-						String dir1 = sDir + "/" + file[i].getName();
-						String dir2 = tDir + "/" + file[i].getName();
-						copyDirectiory(dir1, dir2);
-					}
-				}
-			}
-	
-	
 			// 文件重命名
 			public static void renameFile(String path, String oldname, String newname) {
 				if (!oldname.equals(newname)) {
